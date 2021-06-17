@@ -47,8 +47,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 	JButton btExport;
 	JLabel lbLabel1;
 	JCheckBox cbPrivate;
-	JList lsSubmodelList;
-	DefaultComboBoxModel skinList;
+	JList<String> lsSubmodelList;
+	DefaultComboBoxModel<String> skinList;
 	JLabel lbLabel5;
 	JButton btLoadJson;
 	JButton btLoadTexture;
@@ -62,12 +62,12 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 	JButton btClear;
 	JButton btAddErect;
 	JLabel lbLabel12;
-	JComboBox cmbSkinList;
+	JComboBox<String> cmbSkinList;
 	JLabel lbLabel16;
 	JTextField tfVersion;
 	JLabel lbPrivateDesc;
 	JButton btBoundingBox;
-	DefaultListModel submodelModel = new DefaultListModel();
+	DefaultListModel<String> submodelModel = new DefaultListModel<String>();
 
 	/**
 	 * Constructor for the MainPanel object
@@ -140,7 +140,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbMainPanel.setConstraints(cbPrivate, gbcMainPanel);
 		add(cbPrivate);
 
-		lsSubmodelList = new JList(submodelModel);
+		lsSubmodelList = new JList<String>(submodelModel);
 		JScrollPane scpSubmodelList = new JScrollPane(lsSubmodelList);
 		lsSubmodelList.addListSelectionListener(this);
 		gbcMainPanel.gridx = 0;
@@ -316,8 +316,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbMainPanel.setConstraints(lbLabel12, gbcMainPanel);
 		add(lbLabel12);
 
-		skinList = new DefaultComboBoxModel();
-		cmbSkinList = new JComboBox(skinList);
+		skinList = new DefaultComboBoxModel<String>();
+		cmbSkinList = new JComboBox<String>(skinList);
 		cmbSkinList.addActionListener(this);
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 11;
@@ -540,7 +540,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 			JButton cancel = new JButton("Cancel");
 			JButton ok = new JButton("OK");
 			texSelect.add(new JLabel("Texture to load:"));
-			JComboBox texBox = new JComboBox(tex.toArray());
+			JComboBox<?> texBox = new JComboBox<Object>(tex.toArray());
 			texSelect.add(texBox);
 			texSelect.add(cancel);
 			texSelect.add(ok);

@@ -59,7 +59,6 @@ public class ModelUtils {
 		JsonObject root = (JsonObject) json;
 
 		// Validate Bones
-		JsonElement bones = root.get("bones");
 		if (listBones(root).size() == 0) {
 			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame,
 					"There doesn't seem to be any bones in this model.", "Invalid JSON", JOptionPane.ERROR_MESSAGE);
