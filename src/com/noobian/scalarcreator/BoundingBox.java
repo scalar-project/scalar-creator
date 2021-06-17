@@ -1,18 +1,17 @@
 package com.noobian.scalarcreator;
 
-import javax.swing.JDialog;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.JPanel;
-import javax.swing.BorderFactory;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class BoundingBox extends JDialog {
+	private static final long serialVersionUID = 1L;
+
 	static BoundingBox theBoundingBox;
 
 	JPanel pnPanel0;

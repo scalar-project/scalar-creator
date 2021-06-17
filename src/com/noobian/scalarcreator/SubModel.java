@@ -9,5 +9,5 @@ import com.google.gson.JsonObject;
 public class SubModel {
 	String jsonName;
 	JsonObject json;
-	Map<String,ByteBuffer> textures = new HashMap<String, ByteBuffer>();
+	Map<String, ByteBuffer> textures = new HashMap<String, ByteBuffer>();
 }

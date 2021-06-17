@@ -1,29 +1,33 @@
 package com.noobian.scalarcreator;
 
-import javax.swing.JPanel;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.io.FileUtils;
@@ -33,16 +37,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-
 class MainPanel extends JPanel implements ActionListener, ListSelectionListener {
+	private static final long serialVersionUID = 1L;
 	String selectedTexture;
 	String txt;
 
@@ -394,15 +390,17 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		} else if (e.getSource() == btLoadTexture) {
 			loadTexture();
 		} else if (e.getSource() == btAddAroused) {
-			ScalarCreator.model.getSkinByModelName(ModelNameParser.getGuiSelectedModelName((String) cmbSkinList.getSelectedItem(),
-				(String) lsSubmodelList.getSelectedValue())).aroused.add(new SubModel());
+			ScalarCreator.model.getSkinByModelName(ModelNameParser.getGuiSelectedModelName(
+					(String) cmbSkinList.getSelectedItem(), (String) lsSubmodelList.getSelectedValue())).aroused
+							.add(new SubModel());
 			this.loadSubmodelGuiForSkin(((String) cmbSkinList.getSelectedItem()).replace("<", "").replace(">", ""));
 		} else if (e.getSource() == btClear) {
 			// Action for btClear
 		} else if (e.getSource() == btAddErect) {
-			ScalarCreator.model.getSkinByModelName(ModelNameParser.getGuiSelectedModelName((String) cmbSkinList.getSelectedItem(),
-					(String) lsSubmodelList.getSelectedValue())).erect.add(new SubModel());
-				this.loadSubmodelGuiForSkin(((String) cmbSkinList.getSelectedItem()).replace("<", "").replace(">", ""));
+			ScalarCreator.model.getSkinByModelName(ModelNameParser.getGuiSelectedModelName(
+					(String) cmbSkinList.getSelectedItem(), (String) lsSubmodelList.getSelectedValue())).erect
+							.add(new SubModel());
+			this.loadSubmodelGuiForSkin(((String) cmbSkinList.getSelectedItem()).replace("<", "").replace(">", ""));
 		} else if (e.getSource() == btBoundingBox) {
 			// Action for btBoundingBox
 		} else if (e.getSource() == cbPrivate) {
@@ -435,7 +433,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 				}
 			}
 
-				this.loadSubmodelGuiForSkin(((String) cmbSkinList.getSelectedItem()).replace("<", "").replace(">", ""));
+			this.loadSubmodelGuiForSkin(((String) cmbSkinList.getSelectedItem()).replace("<", "").replace(">", ""));
 		}
 	}
 
@@ -448,7 +446,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 
 	public void init() {
 		cbPrivate.addActionListener(this);
-		btClear.setVisible(false); //TODO add clear in v0.2
+		btClear.setVisible(false); // TODO add clear in v0.2
 		tfVersion.setText("1.0");
 		submodelModel.add(0, "Normal [Empty]");
 		submodelModel.add(1, "Erect [Empty]");
@@ -660,7 +658,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 			str += jsonName;
 		}
 		str += "]";
-		
+
 		submodelModel.add(submodelModel.getSize(), str);
 	}
 }
