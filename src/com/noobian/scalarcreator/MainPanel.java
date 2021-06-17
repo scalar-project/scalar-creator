@@ -42,18 +42,18 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 	String selectedTexture;
 	String txt;
 
-	JLabel lbLabel0;
+	JLabel lbAuthor;
 	JTextField tfAuthor;
 	JButton btExport;
-	JLabel lbLabel1;
+	JLabel lbPrivate;
 	JCheckBox cbPrivate;
 	JList<String> lsSubmodelList;
 	DefaultComboBoxModel<String> skinList;
-	JLabel lbLabel5;
+	JLabel lbSubmodelList;
 	JButton btLoadJson;
 	JButton btLoadTexture;
-	JLabel lbLabel8;
-	JLabel lbLabel9;
+	JLabel lbDisplayName;
+	JLabel lbModelId;
 	JTextField tfDisplayName;
 	JTextField tfModelId;
 	JButton btAddAroused;
@@ -61,9 +61,9 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 	JLabel lbTexture;
 	JButton btClear;
 	JButton btAddErect;
-	JLabel lbLabel12;
+	JLabel lbSkinList;
 	JComboBox<String> cmbSkinList;
-	JLabel lbLabel16;
+	JLabel lbVersion;
 	JTextField tfVersion;
 	JLabel lbPrivateDesc;
 	JButton btBoundingBox;
@@ -79,7 +79,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		GridBagConstraints gbcMainPanel = new GridBagConstraints();
 		setLayout(gbMainPanel);
 
-		lbLabel0 = new JLabel("Author");
+		lbAuthor = new JLabel("Author");
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 5;
 		gbcMainPanel.gridwidth = 1;
@@ -88,8 +88,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbcMainPanel.weightx = 1;
 		gbcMainPanel.weighty = 1;
 		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbLabel0, gbcMainPanel);
-		add(lbLabel0);
+		gbMainPanel.setConstraints(lbAuthor, gbcMainPanel);
+		add(lbAuthor);
 
 		tfAuthor = new JTextField();
 		gbcMainPanel.gridx = 1;
@@ -116,7 +116,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbMainPanel.setConstraints(btExport, gbcMainPanel);
 		add(btExport);
 
-		lbLabel1 = new JLabel("Private?");
+		lbPrivate = new JLabel("Private?");
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 7;
 		gbcMainPanel.gridwidth = 1;
@@ -125,8 +125,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbcMainPanel.weightx = 1;
 		gbcMainPanel.weighty = 1;
 		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbLabel1, gbcMainPanel);
-		add(lbLabel1);
+		gbMainPanel.setConstraints(lbPrivate, gbcMainPanel);
+		add(lbPrivate);
 
 		cbPrivate = new JCheckBox("");
 		gbcMainPanel.gridx = 1;
@@ -154,7 +154,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbMainPanel.setConstraints(scpSubmodelList, gbcMainPanel);
 		add(scpSubmodelList);
 
-		lbLabel5 = new JLabel("Submodel List:");
+		lbSubmodelList = new JLabel("Submodel List:");
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 12;
 		gbcMainPanel.gridwidth = 1;
@@ -163,8 +163,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbcMainPanel.weightx = 1;
 		gbcMainPanel.weighty = 1;
 		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbLabel5, gbcMainPanel);
-		add(lbLabel5);
+		gbMainPanel.setConstraints(lbSubmodelList, gbcMainPanel);
+		add(lbSubmodelList);
 
 		btLoadJson = new JButton("Load JSON");
 		btLoadJson.addActionListener(this);
@@ -192,7 +192,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbMainPanel.setConstraints(btLoadTexture, gbcMainPanel);
 		add(btLoadTexture);
 
-		lbLabel8 = new JLabel("Display Name");
+		lbDisplayName = new JLabel("Display Name");
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 4;
 		gbcMainPanel.gridwidth = 1;
@@ -201,10 +201,10 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbcMainPanel.weightx = 1;
 		gbcMainPanel.weighty = 1;
 		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbLabel8, gbcMainPanel);
-		add(lbLabel8);
+		gbMainPanel.setConstraints(lbDisplayName, gbcMainPanel);
+		add(lbDisplayName);
 
-		lbLabel9 = new JLabel("Model ID");
+		lbModelId = new JLabel("Model ID");
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 3;
 		gbcMainPanel.gridwidth = 1;
@@ -213,8 +213,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbcMainPanel.weightx = 1;
 		gbcMainPanel.weighty = 1;
 		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbLabel9, gbcMainPanel);
-		add(lbLabel9);
+		gbMainPanel.setConstraints(lbModelId, gbcMainPanel);
+		add(lbModelId);
 
 		tfDisplayName = new JTextField();
 		gbcMainPanel.gridx = 1;
@@ -303,7 +303,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbMainPanel.setConstraints(btAddErect, gbcMainPanel);
 		add(btAddErect);
 
-		lbLabel12 = new JLabel("Selected Skin:");
+		lbSkinList = new JLabel("Selected Skin:");
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 10;
 		gbcMainPanel.gridwidth = 1;
@@ -313,8 +313,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbcMainPanel.weighty = 1;
 		gbcMainPanel.anchor = GridBagConstraints.NORTH;
 		gbcMainPanel.insets = new Insets(25, 0, 0, 0);
-		gbMainPanel.setConstraints(lbLabel12, gbcMainPanel);
-		add(lbLabel12);
+		gbMainPanel.setConstraints(lbSkinList, gbcMainPanel);
+		add(lbSkinList);
 
 		skinList = new DefaultComboBoxModel<String>();
 		cmbSkinList = new JComboBox<String>(skinList);
@@ -330,7 +330,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbMainPanel.setConstraints(cmbSkinList, gbcMainPanel);
 		add(cmbSkinList);
 
-		lbLabel16 = new JLabel("Version");
+		lbVersion = new JLabel("Version");
 		gbcMainPanel.gridx = 0;
 		gbcMainPanel.gridy = 6;
 		gbcMainPanel.gridwidth = 1;
@@ -339,8 +339,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gbcMainPanel.weightx = 1;
 		gbcMainPanel.weighty = 1;
 		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbLabel16, gbcMainPanel);
-		add(lbLabel16);
+		gbMainPanel.setConstraints(lbVersion, gbcMainPanel);
+		add(lbVersion);
 
 		tfVersion = new JTextField();
 		gbcMainPanel.gridx = 1;
