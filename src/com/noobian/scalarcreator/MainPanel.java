@@ -44,7 +44,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 
 	JLabel lbAuthor;
 	JTextField tfAuthor;
-	JButton btExport;
+	JLabel lbStep1;
 	JLabel lbPrivate;
 	JCheckBox cbPrivate;
 	JList<String> lsSubmodelList;
@@ -66,8 +66,10 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 	JLabel lbVersion;
 	JTextField tfVersion;
 	JLabel lbPrivateDesc;
-	JButton btBoundingBox;
+	JLabel lbStep2;
 	DefaultListModel<String> submodelModel = new DefaultListModel<String>();
+	JLabel lbContinue;
+	JButton btContinue;
 
 	/**
 	 * Constructor for the MainPanel object
@@ -75,317 +77,342 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 	public MainPanel() {
 		super();
 
-		GridBagLayout gbMainPanel = new GridBagLayout();
-		GridBagConstraints gbcMainPanel = new GridBagConstraints();
-		setLayout(gbMainPanel);
+		GridBagLayout gb = new GridBagLayout();
+		GridBagConstraints gbc = new GridBagConstraints();
+		setLayout(gb);
 
 		lbAuthor = new JLabel("Author");
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 5;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbAuthor, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbAuthor, gbc);
 		add(lbAuthor);
 
 		tfAuthor = new JTextField();
-		gbcMainPanel.gridx = 1;
-		gbcMainPanel.gridy = 5;
-		gbcMainPanel.gridwidth = 5;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(tfAuthor, gbcMainPanel);
+		gbc.gridx = 1;
+		gbc.gridy = 5;
+		gbc.gridwidth = 5;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(tfAuthor, gbc);
 		add(tfAuthor);
 
-		btExport = new JButton("Export Model Pack");
-		btExport.addActionListener(this);
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 0;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(btExport, gbcMainPanel);
-		add(btExport);
+		lbStep1 = new JLabel("Step 1: Basic Information");
+		AwtUtils.setBold(lbStep1);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbStep1, gbc);
+		add(lbStep1);
 
 		lbPrivate = new JLabel("Private?");
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 7;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbPrivate, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 7;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbPrivate, gbc);
 		add(lbPrivate);
 
 		cbPrivate = new JCheckBox("");
-		gbcMainPanel.gridx = 1;
-		gbcMainPanel.gridy = 7;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(cbPrivate, gbcMainPanel);
+		gbc.gridx = 1;
+		gbc.gridy = 7;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(cbPrivate, gbc);
 		add(cbPrivate);
 
 		lsSubmodelList = new JList<String>(submodelModel);
 		JScrollPane scpSubmodelList = new JScrollPane(lsSubmodelList);
 		lsSubmodelList.addListSelectionListener(this);
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 13;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(scpSubmodelList, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 13;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(scpSubmodelList, gbc);
 		add(scpSubmodelList);
 
 		lbSubmodelList = new JLabel("Submodel List:");
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 12;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbSubmodelList, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 12;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbSubmodelList, gbc);
 		add(lbSubmodelList);
 
 		btLoadJson = new JButton("Load JSON");
 		btLoadJson.addActionListener(this);
-		gbcMainPanel.gridx = 2;
-		gbcMainPanel.gridy = 12;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(btLoadJson, gbcMainPanel);
+		gbc.gridx = 2;
+		gbc.gridy = 12;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(btLoadJson, gbc);
 		add(btLoadJson);
 
 		btLoadTexture = new JButton("Load Texture");
 		btLoadTexture.addActionListener(this);
-		gbcMainPanel.gridx = 3;
-		gbcMainPanel.gridy = 12;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(btLoadTexture, gbcMainPanel);
+		gbc.gridx = 3;
+		gbc.gridy = 12;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(btLoadTexture, gbc);
 		add(btLoadTexture);
 
 		lbDisplayName = new JLabel("Display Name");
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 4;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbDisplayName, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbDisplayName, gbc);
 		add(lbDisplayName);
 
 		lbModelId = new JLabel("Model ID");
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 3;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbModelId, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbModelId, gbc);
 		add(lbModelId);
 
 		tfDisplayName = new JTextField();
-		gbcMainPanel.gridx = 1;
-		gbcMainPanel.gridy = 4;
-		gbcMainPanel.gridwidth = 5;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(tfDisplayName, gbcMainPanel);
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		gbc.gridwidth = 5;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(tfDisplayName, gbc);
 		add(tfDisplayName);
 
 		tfModelId = new JTextField();
-		gbcMainPanel.gridx = 1;
-		gbcMainPanel.gridy = 3;
-		gbcMainPanel.gridwidth = 5;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(tfModelId, gbcMainPanel);
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		gbc.gridwidth = 5;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(tfModelId, gbc);
 		add(tfModelId);
 
 		btAddAroused = new JButton("Add In-Between");
 		btAddAroused.addActionListener(this);
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 14;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(btAddAroused, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 14;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(btAddAroused, gbc);
 		add(btAddAroused);
 
-		lbLoadedTexture = new JLabel("Loaded Textures:");
-		gbcMainPanel.gridx = 3;
-		gbcMainPanel.gridy = 13;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbLoadedTexture, gbcMainPanel);
+		lbLoadedTexture = new JLabel("Loaded Textures: ");
+		gbc.gridx = 2;
+		gbc.gridy = 13;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbLoadedTexture, gbc);
 		add(lbLoadedTexture);
 
 		lbTexture = new JLabel("(none)");
-		gbcMainPanel.gridx = 4;
-		gbcMainPanel.gridy = 13;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbTexture, gbcMainPanel);
+		gbc.gridx = 3;
+		gbc.gridy = 13;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbTexture, gbc);
 		add(lbTexture);
 
 		btClear = new JButton("Clear");
 		btClear.addActionListener(this);
-		gbcMainPanel.gridx = 4;
-		gbcMainPanel.gridy = 12;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(btClear, gbcMainPanel);
+		gbc.gridx = 4;
+		gbc.gridy = 12;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(btClear, gbc);
 		add(btClear);
 
 		btAddErect = new JButton("Add Erect Variant");
 		btAddErect.addActionListener(this);
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 15;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(btAddErect, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 15;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(btAddErect, gbc);
 		add(btAddErect);
 
 		lbSkinList = new JLabel("Selected Skin:");
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 10;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbcMainPanel.insets = new Insets(25, 0, 0, 0);
-		gbMainPanel.setConstraints(lbSkinList, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 10;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gbc.insets = new Insets(25, 0, 0, 0);
+		gb.setConstraints(lbSkinList, gbc);
 		add(lbSkinList);
 
 		skinList = new DefaultComboBoxModel<String>();
 		cmbSkinList = new JComboBox<String>(skinList);
 		cmbSkinList.addActionListener(this);
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 11;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(cmbSkinList, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 11;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(cmbSkinList, gbc);
 		add(cmbSkinList);
 
 		lbVersion = new JLabel("Version");
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 6;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbVersion, gbcMainPanel);
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbVersion, gbc);
 		add(lbVersion);
 
 		tfVersion = new JTextField();
-		gbcMainPanel.gridx = 1;
-		gbcMainPanel.gridy = 6;
-		gbcMainPanel.gridwidth = 5;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(tfVersion, gbcMainPanel);
+		gbc.gridx = 1;
+		gbc.gridy = 6;
+		gbc.gridwidth = 5;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(tfVersion, gbc);
 		add(tfVersion);
 
 		lbPrivateDesc = new JLabel("(Anyone can use the model)");
-		gbcMainPanel.gridx = 2;
-		gbcMainPanel.gridy = 7;
-		gbcMainPanel.gridwidth = 5;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 1;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(lbPrivateDesc, gbcMainPanel);
+		gbc.gridx = 2;
+		gbc.gridy = 7;
+		gbc.gridwidth = 5;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbPrivateDesc, gbc);
 		add(lbPrivateDesc);
 
-		btBoundingBox = new JButton("Configure Bounding Box");
-		btBoundingBox.addActionListener(this);
-		gbcMainPanel.gridx = 0;
-		gbcMainPanel.gridy = 8;
-		gbcMainPanel.gridwidth = 1;
-		gbcMainPanel.gridheight = 1;
-		gbcMainPanel.fill = GridBagConstraints.BOTH;
-		gbcMainPanel.weightx = 1;
-		gbcMainPanel.weighty = 0;
-		gbcMainPanel.anchor = GridBagConstraints.NORTH;
-		gbMainPanel.setConstraints(btBoundingBox, gbcMainPanel);
-		add(btBoundingBox);
+		lbStep2 = new JLabel("Step 2: Load JSON and Textures");
+		AwtUtils.setBold(lbStep2);
+		gbc.gridx = 0;
+		gbc.gridy = 8;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbStep2, gbc);
+		add(lbStep2);
+
+		lbContinue = new JLabel("Make sure everything is loaded before continuing!");
+		AwtUtils.setBold(lbContinue);
+		gbc.gridx = 0;
+		gbc.gridy = 16;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(lbContinue, gbc);
+		add(lbContinue);
+
+		btContinue = new JButton("Continue");
+		AwtUtils.setBold(btContinue);
+		btContinue.addActionListener(this);
+		gbc.gridx = 0;
+		gbc.gridy = 17;
+		gbc.gridwidth = 4;
+		gbc.gridheight = 2;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		gb.setConstraints(btContinue, gbc);
+		add(btContinue);
 	}
 
 	/**
 	*/
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btExport) {
-			// Action for btExport
-		} else if (e.getSource() == btLoadJson) {
+		if (e.getSource() == btLoadJson) {
 			loadJson();
 		} else if (e.getSource() == btLoadTexture) {
 			loadTexture();
@@ -401,8 +428,6 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 					(String) cmbSkinList.getSelectedItem(), (String) lsSubmodelList.getSelectedValue())).erect
 							.add(new SubModel());
 			this.loadSubmodelGuiForSkin(((String) cmbSkinList.getSelectedItem()).replace("<", "").replace(">", ""));
-		} else if (e.getSource() == btBoundingBox) {
-			// Action for btBoundingBox
 		} else if (e.getSource() == cbPrivate) {
 			if (cbPrivate.isSelected()) {
 				lbPrivateDesc.setText("(Only the author can use the model)");
@@ -466,9 +491,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 				return;
 			} else {
 				// Delete textures
-				System.out.println(ScalarCreator.model.getSkinByModelName(mn).getSubModelByName(mn).textures);
 				ScalarCreator.model.getSkinByModelName(mn).getSubModelByName(mn).textures.clear();
-				System.out.println(ScalarCreator.model.getSkinByModelName(mn).getSubModelByName(mn).textures);
 				this.updateTextureLabel();
 			}
 		}
@@ -608,13 +631,12 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 				(String) cmbSkinList.getSelectedItem(), (String) lsSubmodelList.getSelectedValue()));
 
 		txt = "";
-		System.out.println(tex);
 		if (tex.size() == 0) {
 			lbTexture.setText("(none)");
 			return;
 		}
 		tex.forEach((s) -> {
-			txt += s + "\n";
+			txt += s + (s.equals(tex.get(tex.size() - 1)) ? "" : ", ");
 		});
 		lbTexture.setText(txt);
 	}
@@ -624,17 +646,14 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		submodelModel.clear();
 
 		// Add all submodels in order of normal, aroused, erect
-		System.out.println(ScalarCreator.model.skins.get(skin).normal);
 		guiAddSubmodelEntry(ScalarCreator.model.skins.get(skin).normal, ModelMood.NORMAL, 0,
 				ScalarCreator.model.skins.get(skin).normal.jsonName);
 		int i = 0;
-		System.out.println(ScalarCreator.model.skins.get(skin).aroused);
 		for (SubModel aroused : ScalarCreator.model.skins.get(skin).aroused) {
 			guiAddSubmodelEntry(aroused, ModelMood.AROUSED, i, aroused.jsonName);
 			i++;
 		}
 		i = 0;
-		System.out.println(ScalarCreator.model.skins.get(skin).erect);
 		for (SubModel erect : ScalarCreator.model.skins.get(skin).erect) {
 			guiAddSubmodelEntry(erect, ModelMood.ERECT, i, erect.jsonName);
 			i++;
