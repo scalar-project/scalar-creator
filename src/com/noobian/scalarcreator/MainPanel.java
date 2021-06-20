@@ -242,7 +242,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		gb.setConstraints(tfModelId, gbc);
 		add(tfModelId);
 
-		btAddAroused = new JButton("Add In-Between");
+		btAddAroused = new JButton("Add Arousal");
 		btAddAroused.addActionListener(this);
 		gbc.gridx = 0;
 		gbc.gridy = 14;
@@ -442,7 +442,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 			if (cmbSkinList.getSelectedItem().equals("<add new>")) {
 				String skin = JOptionPane.showInputDialog(ScalarCreator.modalDialogFrame,
 						"Enter the name of your skin:");
-				if (ModelUtils.validateSkinName(skin)) {
+				if (ModelValidator.validateSkinName(skin)) {
 					// Create skin
 					Skin newSkin = new Skin();
 					newSkin.normal = new SubModel();
@@ -459,6 +459,8 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 			}
 
 			this.loadSubmodelGuiForSkin(((String) cmbSkinList.getSelectedItem()).replace("<", "").replace(">", ""));
+		} else if (e.getSource() == btContinue) {
+			continueToEditing();
 		}
 	}
 
@@ -518,7 +520,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		if (ModelUtils.validateJson(json)) {
+		if (ModelValidator.validateLoadedJson(json)) {
 			// We just validated the json, so it's safe to cast
 			ScalarCreator.model.getSkinByModelName(mn).getSubModelByName(mn).json = (JsonObject) json;
 			ScalarCreator.model.getSkinByModelName(mn).getSubModelByName(mn).jsonName = fc.getSelectedFile().getName();
@@ -535,7 +537,7 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 
 		// No JSON
 		if (!ModelUtils.subModelHasJson(mn)) {
-			UIManager.put("OptionPane.okButtonText", "well okay then");
+			UIManager.put("OptionPane.okButtonText", "oops");
 			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame, "You need to import a JSON here first.",
 					"Whoops!", JOptionPane.INFORMATION_MESSAGE);
 			UIManager.put("OptionPane.okButtonText", "OK");
@@ -545,11 +547,9 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 
 		// No textures to load
 		if (tex.size() == 0) {
-			UIManager.put("OptionPane.okButtonText", "idk");
-			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame,
-					"This model doesn't ask for any textures!" + "\nDid you export from Blockbench correctly?"
-							+ "\nOr is this model based entirely off of the player skin?",
-					"That doesn't seem right...", JOptionPane.WARNING_MESSAGE);
+			UIManager.put("OptionPane.okButtonText", "oops");
+			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame, "This model JSON doesn't load any textures!",
+					"No Textures", JOptionPane.WARNING_MESSAGE);
 			UIManager.put("OptionPane.okButtonText", "OK");
 			return;
 		}
@@ -679,5 +679,19 @@ class MainPanel extends JPanel implements ActionListener, ListSelectionListener 
 		str += "]";
 
 		submodelModel.add(submodelModel.getSize(), str);
+	}
+
+	private void continueToEditing() {
+		EditorModel model = ScalarCreator.model;
+		model.id = tfModelId.getText().trim();
+		model.name = tfDisplayName.getText().trim();
+		model.author = tfAuthor.getText().trim();
+		model.version = tfVersion.getText().trim();
+
+		// TODO Deep clone shit in case of failed verification
+		if (ModelValidator.validateCanContinueFromMain()) {
+			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame, "Passed verification");
+
+		}
 	}
 }

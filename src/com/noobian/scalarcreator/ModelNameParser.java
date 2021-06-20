@@ -81,6 +81,24 @@ public class ModelNameParser {
 
 	}
 
+	public static String generateEditorModelName(ModelName mn) {
+		String name;
+
+		if (mn.skin == null)
+			name = "default";
+		else
+			name = mn.skin;
+
+		if (mn.mood != ModelMood.NORMAL)
+			name += "_" + mn.mood.toString().toLowerCase();
+
+		if (mn.stage > 0)
+			name += "_" + String.valueOf(mn.stage);
+
+		return name;
+
+	}
+
 	public static ModelName getGuiSelectedModelName(String skin, String submodel) {
 		ModelName mn = new ModelName();
 		mn.basename = "model";

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -48,36 +46,6 @@ public class ModelUtils {
 			return sm.textures.get(texture);
 		else
 			return null;
-	}
-
-	public static boolean validateJson(JsonElement json) {
-		if (!json.isJsonObject()) {
-			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame, "The JSON is not a valid CPM object.",
-					"Invalid JSON", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-		JsonObject root = (JsonObject) json;
-
-		// Validate Bones
-		if (listBones(root).size() == 0) {
-			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame,
-					"There doesn't seem to be any bones in this model.", "Invalid JSON", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-
-		// Warn missing skeleton
-		JsonElement skeleton = root.get("skeleton");
-		if (!skeleton.isJsonObject() || ((JsonObject) skeleton).size() == 0) {
-			if (JOptionPane.showConfirmDialog(ScalarCreator.modalDialogFrame,
-					"The model does not appear to have a skeleton. This usually means you didn't\n"
-							+ "name your bones correctly in Blockbench. If you continue, it is\n"
-							+ "likely your model won't be animated unless you have some kind of\n"
-							+ "crazy manual custom animation setup in mind.",
-					"No skeleton found", JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION)
-				return false;
-		}
-
-		return true;
 	}
 
 	public static List<String> listBones(JsonObject json) {
@@ -125,26 +93,5 @@ public class ModelUtils {
 			str.add(s);
 		}
 		return str;
-	}
-
-	public static boolean validateSkinName(String skin) {
-		if (skin == null) {
-			// Cancel was pressed, don't make a dialog for it
-			return false;
-		}
-		if (skin.isEmpty()) {
-			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame, "Skin name cannot be blank.");
-			return false;
-		}
-		if (!skin.matches("^[a-z0-9]*$")) {
-			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame,
-					"Skin name must be lowercase letters and numbers only.");
-			return false;
-		}
-		if (ScalarCreator.model.skins.containsKey(skin)) {
-			JOptionPane.showMessageDialog(ScalarCreator.modalDialogFrame, "Skin name already taken.");
-			return false;
-		}
-		return true;
 	}
 }

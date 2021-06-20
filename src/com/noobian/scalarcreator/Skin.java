@@ -1,12 +1,12 @@
 package com.noobian.scalarcreator;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Skin {
 	String id;
 	SubModel normal = null;
-	List<SubModel> aroused, erect = new ArrayList<SubModel>();
+	List<SubModel> aroused, erect = new LinkedList<>();
 
 	public SubModel getSubModelByName(ModelName mn) {
 		if (mn.mood == ModelMood.NORMAL)
